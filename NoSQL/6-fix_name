@@ -1,0 +1,5 @@
+// my comment
+db.school.updateMany(
+  { name: "Holbertoon school" },
+  { $set: { name: "Holberton school" } }
+)
