@@ -1,27 +1,20 @@
 {
   "name": "es6_classes",
   "version": "1.0.0",
-  "description": "## 📚 Resources Read or watch: - Classes - Metaprogramming",
+  "description": "ES6 Classes exercises",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "npx babel-node",
-    "lint": "eslint .",
-    "check-lint": "eslint [0-9]*.js",
+    "dev": "node",
     "test": "jest",
+    "lint": "eslint .",
     "full-test": "npm run lint && npm run test"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.28.3",
-    "@babel/preset-env": "^7.28.3",
-    "@babel/node": "^7.28.3",
-    "babel-jest": "^30.0.5",
     "eslint": "^9.33.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-jest": "^27.9.0",
     "jest": "^30.0.5"
   }
 }
