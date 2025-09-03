@@ -1,33 +1,37 @@
-const fs = require('fs')
+const fs = require('fs'); // using fs module
 
 function countStudents(path) {
   try {
-    const content = fs.readFileSync(path, 'utf-8');
-    const line = content.split('\n');
-    const students = line.slice(1).filter(line => line.trim() !== '');
+    // Lire le fichier en UTF-8
+    const content = fs.readFileSync(path, 'utf8');
+
+    // Découper en lignes (compatible \n et \r\n)
+    const lines = content.split(/\r?\n/);
+
+    // Ignorer l'en-tête et les lignes vides
+    const students = lines.slice(1).filter((line) => line.trim() !== '');
+
+    // Nombre total d'étudiants
+    console.log(`Number of students: ${students.length}`);
+
+    // Regrouper par filière
     const groups = {};
+    for (const line of students) {
+      const cols = line.split(',');
+      const firstname = cols[0].trim();
+      const field = cols[cols.length - 1].trim();
 
-    for (const student of students) {
-      const parts = student.split(',')
-      const firstname = parts[0];
-      const field = parts[3];
-
-    if (!groups[field]) {
-      groups[field] = [];
+      if (!groups[field]) groups[field] = [];
+      groups[field].push(firstname);
     }
-    groups[field].push(firstname);
-  }
 
-  console.log(`Number of students: ${students.length}`);
-
-  for (const field in groups) {
-    console.log(
-      `Number of students in ${field}: ${groups[field].length}. List: ${groups[field].join(', ')}`
-    );
-  }
-} catch (err) {
+    // Afficher les stats par filière
+    for (const [field, list] of Object.entries(groups)) {
+      console.log(`Number of students in ${field}: ${list.length}. List: ${list.join(', ')}`);
+    }
+  } catch (error) {
     throw new Error('Cannot load the database');
   }
 }
 
-module.exports =countStudents;
+module.exports = countStudents;
