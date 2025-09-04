@@ -10,7 +10,7 @@ function countStudents(path) {
       }
 
       const lines = data.split(/\r?\n/);
-      const students = lines.slice(1).filter(line => line.trim() !== '');
+      const students = lines.slice(1).filter((line) => line.trim() !== '');
       console.log(`Number of students: ${students.length}`);
 
       const groups = {};
@@ -20,16 +20,13 @@ function countStudents(path) {
         const field = cols[cols.length - 1].trim();
         if (!groups[field]) groups[field] = [];
         groups[field].push(firstname);
-
       }
       for (const [field, list] of Object.entries(groups)) {
-        console.log(
-          `Number of students in ${field}: ${list.length}. List: ${list.join(', ')}`
-        );
+        console.log(`Number of students in ${field}: ${list.length}. List: ${list.join(', ')}`);
       }
       resolve();
     });
   });
 }
 
-module.exports = countStudents
+module.exports = countStudents;
