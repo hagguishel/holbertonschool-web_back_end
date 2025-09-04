@@ -11,31 +11,31 @@ const app = http.createServer((req, res) => {
     return;
   }
 
-if (req.url === '/students') {
+  if (req.url === '/students') {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
     res.write('This is the list of our students\n');
 
-  if (!databaseFile) {
-    res.end('Cannot load the database');
-    return;
-  }
+    if (!databaseFile) {
+      res.end('Cannot load the database');
+      return;
+    }
 
-  const originalLog = console.log;
-  const lines = [];
-  console.log = (...args) => {
-    lines.push(args.join(' '));
-  };
+    const originalLog = console.log;
+    const lines = [];
+    console.log = (...args) => {
+      lines.push(args.join(' '));
+    };
 
-  countStudents(databaseFile)
-    .then(() => {
-      console.log = originalLog;
-      res.end(lines.join('\n'));
-    })
-    .catch((err) => {
-      console.log = originalLog;
-      res.end(err.message);
-    });
+    countStudents(databaseFile)
+      .then(() => {
+        console.log = originalLog;
+        res.end(lines.join('\n'));
+      })
+      .catch((err) => {
+        console.log = originalLog;
+        res.end(err.message);
+      });
     return;
   }
   res.statusCode = 404;
