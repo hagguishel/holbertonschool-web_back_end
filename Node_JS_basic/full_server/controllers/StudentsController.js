@@ -17,26 +17,25 @@ export default class StudentsController {
 
       res.status(200).type('text').send(lines.join('\n'));
     } catch (err) {
-      res.status(500).type('text').send("Cannot load the database");
-      return;
+      res.status(500).type('text').send('Cannot load the database');
     }
+  }
 
   static async getAllStudentsByMajor(req, res) {
     const filePath = process.argv[2];
-    const { major } = req.params;
+    const m = (req.params.major || '').toUpperCase();
 
-    if (major !== 'cs' && major !== 'SWE') {
-      res.status(500).type('text').send('Makor parameter must be CS or SWE');
+    if (m !== 'CS' && m !== 'SWE') {
+      res.status(500).type('text').send('Major parameter must be CS or SWE');
       return;
     }
 
     try {
       const groups = await readDatabase(filePath);
-      const list = groups[major] || [];
-      res.status(200).type('text').send(`List: ${list.join(', ')}`)
+      const list = groups[m] || [];
+      res.status(200).type('text').send(`List: ${list.join(', ')}`);
     } catch (err) {
-      res.status(500).type('text').send('Cannot load the databse');
+      res.status(500).type('text').send('Cannot load the database');
     }
   }
 }
-
